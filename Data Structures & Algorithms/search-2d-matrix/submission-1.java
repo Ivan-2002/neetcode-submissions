@@ -1,0 +1,33 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        
+        // row
+        int m = matrix.length;
+        // column
+        int n = matrix[0].length;
+        
+        int left = 0;
+        int right = m * n - 1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            // Map the 1D mid index back to 2D matrix coordinates
+            int midValue = matrix[mid / n][mid % n];
+            
+            if (midValue == target) {
+                return true;
+            } else if (midValue < target) {
+                left = mid + 1; // Target is in the right half
+            } else {
+                right = mid - 1; // Target is in the left half
+            }
+        }
+        
+        return false;
+    }
+}
